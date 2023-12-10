@@ -42,7 +42,9 @@ namespace FlaUInspect.Core
 
         private void DispatcherTimerTick(object sender, EventArgs e)
         {
-            if (System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) && System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LWin))
+            // TODO - Allow chosing the keyboard shortcut
+            //if (System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) && System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LWin))
+            if (System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
             {
                 var screenPos = Mouse.Position;
                 try
@@ -66,6 +68,7 @@ namespace FlaUInspect.Core
                 }
                 catch (UnauthorizedAccessException)
                 {
+                    // TODO - Allow ignoring this warning.
                     string caption = "FlaUInspect - Unauthorized access exception";
                     string message = "You are accessing a protected UI element in hover mode.\nTry to start FlaUInspect as administrator.";
                     MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -76,6 +79,7 @@ namespace FlaUInspect.Core
                 }
                 catch (COMException cex)
                 {
+                    // TODO - Log this
                     _mv.ComExceptionDetected = true;
                     //MessageBox.Show(cex.Message, "DispatcherTimeTick caught COM exception. Please refresh inspector", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
