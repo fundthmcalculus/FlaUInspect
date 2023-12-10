@@ -375,7 +375,7 @@ namespace FlaUInspect.ViewModels
                 detailGroups.Add(new DetailGroupViewModel("Toggle Pattern", patternDetails));
             }
 
-            //InvokePattern 
+            // InvokePattern 
             if (allSupportedPatterns.Contains(AutomationElement.Automation.PatternLibrary.InvokePattern))
             {
                 var pattern = AutomationElement.Patterns.Invoke.Pattern;
