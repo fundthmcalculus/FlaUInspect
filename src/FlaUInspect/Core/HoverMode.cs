@@ -43,8 +43,9 @@ namespace FlaUInspect.Core
         private void DispatcherTimerTick(object sender, EventArgs e)
         {
             // TODO - Allow chosing the keyboard shortcut
-            //if (System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) && System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LWin))
-            if (System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
+            var stockHover = System.Windows.Input.Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control);
+            var leftWinHover = stockHover && System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.LWin);
+            if ((_mv.EnableLeftWinHover &&  leftWinHover) || (stockHover && !_mv.EnableLeftWinHover))
             {
                 var screenPos = Mouse.Position;
                 try
