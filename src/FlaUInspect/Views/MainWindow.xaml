@@ -43,9 +43,12 @@
                     <MenuItem Header="E_xit" Click="MenuItem_Click" />
                 </MenuItem>
                 <MenuItem Header="_Mode">
-                    <MenuItem Header="H_over Mode (use Ctrl + LWin)" IsCheckable="True" IsChecked="{Binding EnableHoverMode}" />
+                    <MenuItem Header="H_over Mode" IsCheckable="True" IsChecked="{Binding EnableHoverMode}"/>
+                    <MenuItem Header="Use Ctrl+LWin" IsCheckable="True" IsChecked="{Binding EnableLeftWinHover}"/>
+
                     <MenuItem Header="_Focus Tracking" IsCheckable="True" IsChecked="{Binding EnableFocusTrackingMode}" />
                     <MenuItem Header="Show _XPath" IsCheckable="True" IsChecked="{Binding EnableXPath}" />
+                    <MenuItem Header="Options" IsCheckable="False" />
                 </MenuItem>
             </Menu>
             <StatusBar DockPanel.Dock="Bottom">
@@ -92,7 +95,7 @@
                         </TreeView.ItemContainerStyle>
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate ItemsSource="{Binding Children}" DataType="{x:Type models:Element}">
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" MouseRightButtonUp="StackPanel_MouseRightButtonUp">
                                     <Image Width="16" Height="16" Margin="0,0,5,0">
                                         <Image.Style>
                                             <Style TargetType="{x:Type Image}">

@@ -69,6 +69,30 @@ namespace FlaUInspect.ViewModels
             private set { SetProperty(value); }
         }
 
+        public bool EnableLeftWinHover
+        {
+            get { return GetProperty<bool>(); }
+            set
+            {
+                if (SetProperty(value))
+                {
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(System.Windows.Forms.Application.ExecutablePath);
+                    config.AppSettings.Settings.Remove("EnableLeftWinHover");
+                    if (value)
+                    {
+                        config.AppSettings.Settings.Add("EnableLeftWinHover", "true");
+                        _hoverMode.Start();
+                    }
+                    else
+                    {
+                        config.AppSettings.Settings.Add("EnableLeftWinHover", "false");
+                        _hoverMode.Stop();
+                    }
+                    config.Save(ConfigurationSaveMode.Minimal);
+                }
+            }
+        }
+
         public bool EnableHoverMode
         {
             get { return GetProperty<bool>(); }
@@ -203,10 +227,14 @@ namespace FlaUInspect.ViewModels
             ComExceptionDetected = false;
             // Set modes from config file
             var enableHoverMode = ConfigurationManager.AppSettings["EnableHoverMode"];
+            // TODO - Allow this to be a custom key chord?
+            var enableLeftWinHover = ConfigurationManager.AppSettings["EnableLeftWinHover"];
             var enableFocusTrackingMode = ConfigurationManager.AppSettings["EnableFocusTrackingMode"];
             var enableXPath = ConfigurationManager.AppSettings["EnableXPath"];
 
+            // TODO - Proper string comparison
             EnableHoverMode = enableHoverMode == "true";
+            EnableLeftWinHover = enableLeftWinHover == "true";
             EnableFocusTrackingMode = enableFocusTrackingMode == "true";
             EnableXPath = enableXPath == "true";
         }
